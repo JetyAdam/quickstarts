@@ -5,3 +5,8 @@ tags:
   value: Ansible
 - kind: content
   value: documentation
+- kind: product-families
+  value: ansible
+- kind: use-case
+  value: automation
+  
