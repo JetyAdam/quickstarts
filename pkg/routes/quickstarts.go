@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/RedHatInsights/quickstarts/pkg/database"
 	"github.com/RedHatInsights/quickstarts/pkg/models"
@@ -67,7 +68,9 @@ func findQuickstarts(tagTypes []models.TagType, tagValues [][]string, name strin
 	} else if len(tagTypes) > 0 {
 		quickstarts, err = findQuickstartsByTagsAndDisplayName(tagTypes, tagValues, displayName, pagination)
 	} else if displayName != "" {
-		quickstarts, err = findQuickstartsByDisplayName(displayName, pagination)
+		if strings.TrimSpace(displayName) != "" {
+			quickstarts, err = findQuickstartsByDisplayName(displayName, pagination)
+		}
 	} else {
 		err = database.DB.Limit(pagination.Limit).Offset(pagination.Offset).Find(&quickstarts).Error
 	}
